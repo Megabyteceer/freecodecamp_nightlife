@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app="voteApp">
 
 	<head>
-		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
-		
+			<title>poll-a-geddon.</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<body>
-		<div class="container">	
-			<div class="login">
-				<img src="/public/img/clementine_150.png" />
-				<br />
-				<p class="clementine-text">Clementine.js</p>
-				<a href="/auth/github">
-					<div class="btn" id="login-btn">
-						<img src="/public/img/github_32px.png" alt="github logo" />
-						<p>LOGIN WITH GITHUB</p>
-					</div>
-				</a>
+		
+		<app-title></app-title>
+		
+		<div class="container">
+			<div class="row">
+				<div class="text-center">
+					<a href="/auth/github">
+						<div class="btn" id="login-btn">
+							<img src="/public/img/github_32px.png" alt="github logo" />
+							<p>LOGIN WITH GITHUB</p>
+						</div>
+					</a>
+				</div>
 			</div>
 		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="controllers/voteApp.js"></script>
+		
+		
+		
 	</body>
 
 </html>

@@ -5,6 +5,7 @@ var routes = require('./app/routes/index.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 var app = express();
 require('dotenv').load();
@@ -14,16 +15,21 @@ mongoose.connect(process.env.MONGO_URI);
 
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/common', express.static(process.cwd() + '/app/common'));
+app.use('/partials', express.static(process.cwd() + '/app/partials'));
 
 app.use(session({
-	secret: 'secretClementine',
+	secret: 'sJUUha(*(hhiuias02398sc',
 	resave: false,
-	saveUninitialized: true
+	saveUninitialized: true,
+	store: new MongoStore({url: process.env.MONGO_URI})
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+var bodyParser = require('body-parser')
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+
 
 routes(app, passport);
 

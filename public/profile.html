@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app="voteApp">
 
 	<head>
 		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
@@ -9,20 +9,24 @@
 	</head>
 
 	<body>
-		<div class="container">
-			<div class="github-profile">
-				<img src="/public/img/gh-mark-32px.png" alt="github logo" />
-				<p><span>ID: </span><span id="profile-id" class="profile-value"></span></p>
-				<p><span>Username: </span><span id="profile-username" class="profile-value"></span></p>
-				<p><span>Display Name: </span><span id="display-name" class="profile-value"></span></p>
-				<p><span>Repositories: </span><span id="profile-repos" class="profile-value"></span></p>
-				<a class="menu" href="/">Home</a>
-				<p id="menu-divide">|</p>
-				<a class="menu" href="/logout">Logout</a>
+		<div class="container"  ng-controller="UserController as user" ng-cloak>
+			<div class="row">
+				<div ng-show="user.data" class="col-sm-4 col-sm-offset-4">
+					<img src="/public/img/gh-mark-32px.png" alt="github logo" /><br>
+					<span>ID: </span>{{user.data.id}}<br>
+					<span>Username: </span>{{user.data.username}}<br>
+					<span>Display Name: </span>{{user.data.displayName}}<br>
+					<span>Repositories: </span>{{user.data.publicRepos}}<br>
+					<a class="menu" href="/">Home</a>
+					|
+					<a class="menu" href="/logout">Logout</a>
+				</div>
 			</div>
 		</div>
-		
-		<script type="text/javascript" src="common/ajax-functions.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+				<script src="controllers/voteApp.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
 	</body>
 
