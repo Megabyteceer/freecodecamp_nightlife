@@ -25,7 +25,7 @@ function PollHandler () {
 	this.postPoll = function (req, res) {
 	
 		var newPoll = new Poll();
-		newPoll.ownerId = req.user.github.id;
+		newPoll.ownerId = req.user.id;
 		newPoll.name = req.body.name;
 		newPoll.save();
 		
@@ -42,7 +42,7 @@ function PollHandler () {
 	this.getPolls = function (req, res) {
 		Poll.
 		  find({
-		    ownerId: req.user.github.id
+		    ownerId: req.user.id
 		  }).
 		  select({ name: 1}).
 		  exec(function(err, polls){
@@ -73,7 +73,7 @@ function PollHandler () {
 				  	if(err)	{
 				  		res.end(err)
 				  	} else {
-				  		res.json({name: poll.name, answered:pollIsVoted(req, req.params.id), answers: answs});
+				  		res.json({name: poll.name, answered:pollIsVoted(req, req.params.id), id:poll._id, answers: answs});
 				  	}
 				  })
 		  	}

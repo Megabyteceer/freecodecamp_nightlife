@@ -4,19 +4,19 @@
 
 	<head>
 		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
-		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+		<link rel="SHORTCUT ICON" href="favicon.ico" type="image/x-icon">
+		<link rel="icon" type="image/ico" href="favicon.ico">
 	</head>
 
 	<body>
 		<div class="container"  ng-controller="UserController as user" ng-cloak>
 			<div class="row">
-				<div ng-show="user.data" class="col-sm-4 col-sm-offset-4">
+				<div ng-show="user.data" class="col-sm-4 col-sm-offset-4 text-center">
 					<img src="/public/img/gh-mark-32px.png" alt="github logo" /><br>
 					<span>ID: </span>{{user.data.id}}<br>
-					<span>Username: </span>{{user.data.username}}<br>
 					<span>Display Name: </span>{{user.data.displayName}}<br>
-					<span>Repositories: </span>{{user.data.publicRepos}}<br>
 					<a class="menu" href="/">Home</a>
 					|
 					<a class="menu" href="/logout">Logout</a>

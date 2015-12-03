@@ -86,6 +86,8 @@
            poll.currentPoll = res.data;
            poll.page='poll';
            poll.curid = id;
+
+           poll.publicUrl = $location.protocol()+'://'+ $location.host() + '/vote:'+id;
            if(poll.currentPoll.answered)
            {
               drawGoogleChart(poll.currentPoll);

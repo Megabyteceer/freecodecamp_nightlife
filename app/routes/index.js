@@ -33,6 +33,14 @@ module.exports = function (app, passport) {
 		.get(function (req, res) {
 			res.sendFile(path + '/public/login.html');
 		});
+		
+	app.route('/favicon.ico')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/img/favicon.ico');
+		});
+		
+		
+		
 
 	app.route('/logout')
 		.get(function (req, res) {
@@ -47,7 +55,7 @@ module.exports = function (app, passport) {
 
 	app.route('/api')
 		.get(isLoggedIn, function (req, res) {
-			res.json(req.user.github);
+			res.json(req.user);
 		});
 
 	app.route('/auth/github')
@@ -58,7 +66,15 @@ module.exports = function (app, passport) {
 			successRedirect: '/',
 			failureRedirect: '/login'
 		}));
+		
+	app.route('/auth/google/callback')
+	.post(passport.authenticate('google'), function(req, res) {
+	    // Return user back to client 
+	    res.send(req.user);
+	});
+		
 
+	
 	app.route('/api/poll/:id')
 		.post(pollHandler.postAnswer)
 		.get(pollHandler.getPoll)
