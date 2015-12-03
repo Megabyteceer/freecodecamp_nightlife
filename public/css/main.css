@@ -20,9 +20,15 @@
 
 
 .app-title-pan{
-    margin:40px 0;
+    margin:20px 0;
     padding:70px;
     background:#6ac;
     color:#ffffff;
     text-align:center;
+}
+
+.div-inline{
+    display:inline-block;
+    margin:30px;
+    
 }

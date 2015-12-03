@@ -4,7 +4,7 @@ var GitHubStrategy = require('passport-github').Strategy;
 var User = require('../models/users');
 var configAuth = require('./auth');
 
-var GooglePlusStrategy = require('passport-google-plus');
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 
 module.exports = function (passport) {
@@ -17,17 +17,6 @@ module.exports = function (passport) {
 			done(err, user);
 		});
 	});
-	
-	
-	
-	
-	passport.use(new GooglePlusStrategy(configAuth.googleAuth,
-	  function(tokens, profile, done) {
-	  	profile.provider = 'google';
-	    return auth_inside(profile, done);
-	  }
-	));
-	
 	
 	
 	
@@ -59,11 +48,6 @@ module.exports = function (passport) {
 		});
 	}
 	
-	
-	
-	
-	
-	
 	passport.use(new GitHubStrategy(configAuth.githubAuth, 
 	function (token, refreshToken, profile, done) {
 		
@@ -71,4 +55,18 @@ module.exports = function (passport) {
 		
 
 	}));
+	
+	
+	passport.use(new GoogleStrategy(configAuth.googleAuth,
+	  function(accessToken, refreshToken, profile, done) {
+	  	
+	   	return auth_inside(profile, done);
+	  }
+	));
+
+	
+	
+	
+	
+	
 };

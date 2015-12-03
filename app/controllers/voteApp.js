@@ -11,8 +11,6 @@ angular.module('voteApp', [])
   };
 })
 
-
-
 .directive('confirmationNeeded', function () {
   return {
     priority: 1,

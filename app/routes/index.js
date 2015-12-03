@@ -67,11 +67,16 @@ module.exports = function (app, passport) {
 			failureRedirect: '/login'
 		}));
 		
-	app.route('/auth/google/callback')
-	.post(passport.authenticate('google'), function(req, res) {
-	    // Return user back to client 
-	    res.send(req.user);
-	});
+	app.get('/auth/google',
+	  passport.authenticate('google', { scope: 'https://www.googleapis.com/auth/plus.login' }));
+	
+	app.get('/auth/google/callback', 
+	  passport.authenticate('google', {
+	  	failureRedirect: '/login' }),
+	  function(req, res) {
+	    // Successful authentication, redirect home.
+	    res.redirect('/');
+	  });
 		
 
 	

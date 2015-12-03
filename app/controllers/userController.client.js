@@ -9,7 +9,6 @@
        var user = this;
        
        $http.get('/api').then(function(res){
-           debugger;
          user.data = res.data;
          $rootScope.loggedIn = res.data.displayName;
        });

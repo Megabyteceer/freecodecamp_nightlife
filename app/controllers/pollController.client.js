@@ -58,7 +58,7 @@
 
    angular.module('voteApp')
 
-   .controller('PollController', function($http, $rootScope, $location) {
+   .controller('PollController', function($http, $rootScope, $location, $timeout) {
 
 
       var poll = this;
@@ -71,7 +71,16 @@
         poll.newPool = false;
       }
       
-
+      function selectFirstEmpty() {
+         $timeout(function(){
+          $('input[type="text"]').each(function() {
+          if ( this.value === '' ) {
+              this.focus();
+              return false;
+             }
+           });
+         },0);
+      }
       
       
       
@@ -119,10 +128,12 @@
             answers: [new Answer(''), new Answer('')]
          }
          poll.page='new';
+         selectFirstEmpty();
       };
 
       poll.addAnswer = function() {
          poll.newPool.answers.push(new Answer());
+         selectFirstEmpty();
       };
 
       poll.removeAnswer = function(answer) {

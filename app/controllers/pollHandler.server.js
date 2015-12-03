@@ -5,19 +5,32 @@ var PollAnswer = require('../models/pollAnswer.js');
 
 function PollHandler () {
 	
-	
+	function getUserId(req){
+		if(req.user)
+			return req.user.id;
+		return 'guest';
+	}
 	function pollIsVoted(req, id){
+		
+		
+		
 		if(typeof(req.session.answered)==='undefined')
 			return false;
-			
-		return(req.session.answered[id]);
+		
+		if(typeof(req.session.answered[getUserId(req)])==='undefined')
+			return false;
+
+		return(req.session.answered[getUserId(req)][id]);
 	}
 	
 	function markPollAsVoted(req, id){
 		if(typeof(req.session.answered)==='undefined'){
 			req.session.answered={};
 		}
-		req.session.answered[id]=true;
+		if(typeof(req.session.answered[getUserId(req)])==='undefined'){
+			req.session.answered[getUserId(req)]={};
+		}
+		req.session.answered[getUserId(req)][id]=true;
 	}
 	
 	

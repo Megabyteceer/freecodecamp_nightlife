@@ -68,6 +68,9 @@
 			
 
 			<div ng-show="poll.page==='poll'" class="container">
+				
+
+				
 				<div class="row">
 					<div class="col-md-offset-3 col-md-6">
 						<h2>{{poll.currentPoll.name}}</h2>
@@ -75,7 +78,7 @@
 			    </div>
 				<br>
 				
-
+				
 				
 				<div class="row" ng-show="!poll.currentPoll.answered" ng-repeat="answer in poll.currentPoll.answers">
 					<div class="col-md-offset-3 col-md-6">
@@ -94,8 +97,6 @@
 				    </div>
 			    </div>
 			    
-			    
-			    
 				<div class="row">
 					<div class="col-md-offset-3 col-md-6">
 						<div class="pull-right">
@@ -106,15 +107,14 @@
 			    </div>
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<hr>
-						Public link to this survey: <a href="{{poll.publicUrl}}">{{poll.publicUrl}}</a>
+						<h4>Public link to this survey: <a href="{{poll.publicUrl}}">{{poll.publicUrl}}</a></h4>
 					</div>
 			    </div>
 				<br>
 			</div>
 		
 		
-			<div ng-show="poll.page==='new'" class="container">
+			<div ng-show="poll.page==='new'" class="container" focus-first-empty>
 				<div class="row">
 					<div class="col-md-offset-3 col-md-6">
 						<label>Poll title:</label> <input class="form-control" type="text" ng-model="poll.newPool.name" placeholder="New poll">
