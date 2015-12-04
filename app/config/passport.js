@@ -5,6 +5,7 @@ var User = require('../models/users');
 var configAuth = require('./auth');
 
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
 
 
 module.exports = function (passport) {
@@ -64,7 +65,11 @@ module.exports = function (passport) {
 	  }
 	));
 
-	
+	passport.use(new TwitterStrategy(configAuth.twitterAuth,
+	  function(token, tokenSecret, profile, done) {
+	    return auth_inside(profile, done);
+	  }
+	));	
 	
 	
 	

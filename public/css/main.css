@@ -1,3 +1,4 @@
+
 .poll-table-line div{
     padding:4px;
     
@@ -31,4 +32,12 @@
     display:inline-block;
     margin:30px;
     
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    padding:20px;
 }
