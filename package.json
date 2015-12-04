@@ -1,11 +1,11 @@
 {
-  "name": "poll-a-geddon",
-  "version": "1.0.6",
-  "description": "Web application for create online pollings.",
+  "name": "night-life",
+  "version": "0.0.1",
+  "description": "Web application for coordinate with friends.",
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Megabyteceer/freecodecamp_fullstack"
+    "url": "git+https://github.com/Megabyteceer/freecodecamp_nightlife.git"
   },
   "keywords": [
     "MongoDB",
@@ -31,5 +31,9 @@
     "passport-github": "^1.0.0",
     "passport-google-oauth": "^0.2.0",
     "passport-twitter": "^1.0.3"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Megabyteceer/freecodecamp_nightlife/issues"
+  },
+  "homepage": "https://github.com/Megabyteceer/freecodecamp_nightlife#readme"
 }

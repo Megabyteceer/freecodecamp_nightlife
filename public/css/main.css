@@ -1,4 +1,6 @@
-
+body{
+    background:#000;
+}
 .poll-table-line div{
     padding:4px;
     

@@ -1,4 +1,4 @@
-# Poll-A-Geddon - learning project for freecodecamp.com
+# freecodecamp_nightlife - learning project for freecodecamp.com
 
 ## License
 
