@@ -58,7 +58,7 @@ function PlaceHandler () {
 			  	data = JSON.parse(data);
 			  	var businesses = [];
 			  	
-			  	if(data.businesses) {
+			  	if(data.businesses && data.businesses.length) {
 			  		
 			  		var callsCount = 0;
 			  		
@@ -89,6 +89,10 @@ function PlaceHandler () {
 				  		businesses.push(bs);
 				  		
 				  	});
+			  	} else {
+			  		
+			  		res.end();
+			  		
 			  	}
 			    
 			  });

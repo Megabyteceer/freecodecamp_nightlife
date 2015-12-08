@@ -38,10 +38,8 @@
                         controller.places.some(function(p){
                             if(p.id === controller.clickAfterLoad){
                                 controller.goingClick(p);
-                                debugger;
                                 return true;
                             }
-                            debugger;
                             return false;
                         });
                         
@@ -61,7 +59,6 @@
                 place.going = res.data;
               });
           } else {
-              debugger;
              $window.location.href = ('/login?whereYou='+controller.whereYou+'&placeId='+place.id);
           }
       }
