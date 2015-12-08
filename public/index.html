@@ -1,169 +1,84 @@
 <!DOCTYPE html>
 
-<html ng-app="voteApp">
+<html ng-app="megabyte.night-life">
 
 	<head>
-		<title>poll-a-geddon.</title>
+		<title>Night-life</title>
+		<link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+		<link href="/public/css/timer.css" rel="stylesheet" type="text/css">
 		<link rel="SHORTCUT ICON" href="favicon.ico" type="image/x-icon">
 		<link rel="icon" type="image/ico" href="favicon.ico">
+
 	</head>
 
-
-	
 	<body>
-		
-		<div class="container" ng-controller="UserController as user" ng-cloak>
-			<div ng-show="user.data.displayName" class="row">
-				<br>
-				<div class="col-md-offset-3 col-md-6 text-center">
-					Welcome, {{user.data.displayName}}!<br>
-					<a class="menu" href="/profile">Profile</a> | 
-					<a class="menu" href="/logout">Logout</a>
-				</div>
+	<div id="body">
+		<div class="container header flext-center-center" ng-controller="UserController as user" ng-cloak>
+			<div ng-show="user.data.displayName" class="text-center">
+				Welcome, {{user.data.displayName}}!<br>
+				<a class="menu" href="/profile">Profile</a> | 
+				<a class="menu" href="/logout">Logout</a>
 			</div>
 			
-			<div ng-show="!user.data.displayName" class="row">
-				<br>
-				<div class="col-md-offset-3 col-md-6 text-center">
-					please, 
-					<a class="menu" href="/login">Login</a>
-					to create your own polls.
-				</div>
+			<div ng-show="!user.data.displayName" class="text-center">
+				please, 
+				<a class="menu" href="/login">Login</a>
+				to say about your goings.
 			</div>
-			
-			
 		</div>
 		
 		<app-title></app-title>
 		
 
 		
-		<div ng-controller="PollController as poll" ng-cloak>
-						
-						
-			<div ng-show="!poll.page" class="container">
+		<div class="container" ng-controller="PlaceController as controller" ng-cloak>
 				
 				<div class="row">
 					<div class="col-md-offset-3 col-md-6">
-						<h2>Your polls</h2>
-					</div>
-			    </div>	
-						
-				<div class="row poll-table-line" ng-repeat="pollLine in poll.polls">
-					<div class="col-md-offset-3 col-md-6">
-					      <a href="#" ng-click="poll.showPoll(pollLine._id)">{{pollLine.name}}</a>
-					        <button class="btn btn-danger btn-xs pull-right" ng-click="poll.removePoll(pollLine._id)" confirmation-needed="Really delete poll<br><b>{{pollLine.name}}?</b>" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+						<input ng-change="controller.searchChanged()" ng-model-options="{debounce:1000}" class="form-control" type="text" ng-model="controller.whereYou" placeholder="where you at?">
 				    </div>
 			    </div>
-			    <br>
-				<div class="row">
-					<div class="col-md-offset-3 col-md-6">
-						<button class="btn btn-default pull-right" ng-click="poll.addPoll()"><span class="glyphicon glyphicon-plus"></span> New poll</button>
+			    <div class="container flext-center-center">
+				    <div ng-show="controller.showLoaderPic" class="timer-loader">
+						  Loading…
 					</div>
-			    </div>
-				<br>
-			</div>
-			
+				</div>
+				<div class="places-container" ng-class="controller.containerClass">
+					
 
-			<div ng-show="poll.page==='poll'" class="container">
-				
-
-				
-				<div class="row">
-					<div class="col-md-offset-3 col-md-6">
-						<h2>{{poll.currentPoll.name}}</h2>
-					</div>
-			    </div>
-				<br>
-				
-				
-				
-				<div class="row" ng-show="!poll.currentPoll.answered" ng-repeat="answer in poll.currentPoll.answers">
-					<div class="col-md-offset-3 col-md-6">
-						
-						<label>
-						    <input type="radio" ng-model="poll.currentPoll.yourAnswer" ng-value="answer._id">
-						    {{answer.name}}
-						</label><br>
-
-				    </div>
-			    </div>
-			    
-			    <div class="row">
-					<div class="col-md-offset-3 col-md-6">
-						    <div ng-show="poll.currentPoll.answered" id="chart_div"></div>
-				    </div>
-			    </div>
-			    
-				<div class="row">
-					<div class="col-md-offset-3 col-md-6">
-						<div class="pull-right">
-							<button ng-show="poll.loggedIn()" class="btn btn-default" ng-click="poll.refreshPolls()"><span class="glyphicon glyphicon-remove"></span> Close</button> 
-							<button ng-show="!poll.currentPoll.answered" ng-disabled="!poll.currentPoll.yourAnswer" class="btn btn-success" ng-click="poll.vote(poll.currentPoll.yourAnswer)"><span class="glyphicon glyphicon-ok"></span> Vote</button> 
-						</div>
-					</div>
-			    </div>
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<h4>Public link to this survey: <a href="{{poll.publicUrl}}">{{poll.publicUrl}}</a></h4>
-					</div>
-			    </div>
-				<br>
-			</div>
-		
-		
-			<div ng-show="poll.page==='new'" class="container" focus-first-empty>
-				<div class="row">
-					<div class="col-md-offset-3 col-md-6">
-						<label>Poll title:</label> <input class="form-control" type="text" ng-model="poll.newPool.name" placeholder="New poll">
-					</div>
-			    </div>
-				<br>
-				<div class="row">
-					<div class="col-md-offset-3 col-md-6">
-						<label>Options:</label>
-					</div>
-			    </div>		
-						
-				<div class="row" ng-repeat="answer in poll.newPool.answers">
-					<div class="col-md-offset-3 col-md-6">
-						<div class="input-group">
-					      <input type="text" class="form-control" ng-model="answer.name" placeholder="option{{$index+1}}">
-					      <span class="input-group-btn">
-					        <button ng-disabled="!poll.canDeleteOption()" class="btn btn-default" ng-click="poll.removeAnswer(answer)" type="button"><span class="glyphicon glyphicon-remove text-danger"></span></button>
-					      </span>
+					
+					<div class="row" ng ng-repeat="place in controller.places">
+						<div class="col-md-offset-2 col-md-8">
+							<div class="place row">
+								<div class="col-md-3 text-center">
+										<a target="_blank" href="{{place.url}}">
+											<img class="place-pic" src="{{place.image_url}}">
+										</a>
+										<br>
+										<img src="{{place.rating_img_url}}">
+								</div>
+								<div class="col-md-9">
+										<a target="_blank" href="{{place.url}}">
+											<span class="place-title">{{place.name}}</span>
+										</a>
+										<br>
+										<span class="place-adr">{{place.adr}}</span>
+										<br>
+										{{place.snippet_text}}
+										
+								</div>
+								<button ng-click="controller.goingClick(place)" class="btn btn-xs btn-primary pull-right btn-going"><span class="badge">{{place.going}}</span> going</button>
+							</div>
 					    </div>
 				    </div>
-			    </div>
-			    
-				<div class="row">
-					<div class="col-md-offset-3 col-md-6">
-						<button class="btn btn-link pull-right" ng-click="poll.addAnswer()"><span class="glyphicon glyphicon-plus"></span> More options</button>
-					</div>
-			    </div>
-				<br>
+				</div>
+		</div>
+	</div>
 
-				<div class="row">
-					<div class="col-md-offset-3 col-md-6">
-						<div class="btn-group pull-right" role="group" aria-label="...">
-							<button class="btn btn-danger" ng-click="poll.refreshPolls()"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-							<button ng-disabled="!poll.isValid()" class="btn btn-primary" ng-click="poll.submit()"><span class="glyphicon glyphicon-send"></span> Submit</button> 
-						</div>
-					</div>
-			    </div>
-				
-			</div>
-			
-		</div>
-		
-	
-	<div class="footer">
-		<div class="text-center">
-			<a href="http://codepen.io/Megabyteceer/full/xwzMej/">Vasiliy Kostin</a> fullstack, nodejs, angular
-		</div>
-		
+	<div class="footer flext-center-center">
+		<a href="http://codepen.io/Megabyteceer/full/xwzMej/">Vasiliy Kostin</a>, fullstack, nodejs, angular, <a href="http://www.yelp.com/" target="_blank"> yelp API <img src="public/img/yelp_logo_small.png"></a>
 	</div>
 	
 		
@@ -199,8 +114,8 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-		<script src="controllers/voteApp.js"></script>
-		<script type="text/javascript" src="controllers/pollController.client.js"></script>
+		<script src="controllers/app.js"></script>
+		<script type="text/javascript" src="controllers/placeController.client.js"></script>
 
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
 		

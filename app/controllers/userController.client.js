@@ -2,7 +2,7 @@
 
 (function () {
 
-   angular.module('voteApp')
+   angular.module('megabyte.night-life')
 
      .controller('UserController', function($http, $rootScope) {
          

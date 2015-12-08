@@ -1,7 +1,7 @@
 
 
 
-angular.module('voteApp', [])
+angular.module('megabyte.night-life', [])
 
 
 .directive('appTitle', function() {

@@ -1,7 +1,7 @@
 'use strict';
 
 var path = process.cwd();
-var PollHandler = require(path + '/app/controllers/pollHandler.server.js');
+var PlaceHandler = require(path + '/app/controllers/placeHandler.server.js');
 
 module.exports = function (app, passport) {
 
@@ -13,24 +13,38 @@ module.exports = function (app, passport) {
 		}
 	}
 
-	var pollHandler = new PollHandler();
-
-
-
-	app.route('/vote:poll')
-	.get(function(req, res) {
-	    res.sendFile(path + '/public/index.html');
-	});
+	var placeHandler = new PlaceHandler();
 
 
 	app.route('/')
-		.get(isLoggedIn, function (req, res) {
+		.get( function (req, res) {
 			req.session.currentPoll = false;
 			res.sendFile(path + '/public/index.html');
+		});
+		
+	app.route('/afterLoginData')
+		.get(function (req, res) {
+			if(req.isAuthenticated()){
+				if(req.session.afterLoginRequest) {
+					res.json(req.session.afterLoginRequest);
+					delete(req.session.afterLoginRequest.placeId)
+					req.session.save();
+				} else {
+					res.end();
+				}
+				
+			} else {
+				res.end();
+			}
 		});
 
 	app.route('/login')
 		.get(function (req, res) {
+			if(Object.keys(req.query).length > 0)
+			{
+				req.session.afterLoginRequest = req.query;
+			}
+			
 			res.sendFile(path + '/public/login.html');
 		});
 		
@@ -45,7 +59,7 @@ module.exports = function (app, passport) {
 	app.route('/logout')
 		.get(function (req, res) {
 			req.logout();
-			res.redirect('/login');
+			res.redirect('/');
 		});
 
 	app.route('/profile')
@@ -86,15 +100,11 @@ module.exports = function (app, passport) {
 	    res.redirect('/');
 	  });
 
-	
-	app.route('/api/poll/:id')
-		.post(pollHandler.postAnswer)
-		.get(pollHandler.getPoll)
-		.delete(isLoggedIn, pollHandler.deletePoll)
 
-	app.route('/api/poll')
-		.get(isLoggedIn, pollHandler.getPolls)
-		.post(isLoggedIn, pollHandler.postPoll)
+
+	app.route('/api/place')
+		.get(placeHandler.getPlaces)
+		.post(placeHandler.postPlace)
 	
 
 };
